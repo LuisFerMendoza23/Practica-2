@@ -30,7 +30,7 @@ app.post('/Gender', async (req, res) => {
     res.status(201).json(newGender)
 })
 
-app.get('/category', async (req, res) => {
+app.get('/gender', async (req, res) => {
 try{
     const genders = await genderService.findAll()
     res.status(200).json(genders)
