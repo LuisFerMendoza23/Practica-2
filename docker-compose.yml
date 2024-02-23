@@ -1,0 +1,9 @@
+version: "4.27.1"
+services:
+  mongo-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes: 
+      - /mongo-proyecto/
+      
