@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
     res.send("Bye World 222");
 })
 
-app.post('/Gender', async (req, res) => {
+app.post('/gender', async (req, res) => {
     const gender: Gender = req.body;
     const newGender= await genderService.create(gender)
 
