@@ -24,6 +24,29 @@ class GenderService{
 
         return genders
     }
+
+    async findById(id: string){
+        const gender = await Genders.findById(id).catch((error) => {
+            console.log('Error while connecting to the DB', error)
+        } )
+
+        if(!gender){
+            throw boom.notFound('Gender not found');
+        }
+
+        return gender
+    }
+
+    async findByName(name: String){
+        const gender = await Genders.findOne({name}).catch((error) => {
+            console.log('Error while connecting to the DB', error)
+        } )
+
+        if(!gender){
+            throw boom.notFound('Gender not found');
+        }
+        return gender
+    }
 }
 
 export default GenderService
