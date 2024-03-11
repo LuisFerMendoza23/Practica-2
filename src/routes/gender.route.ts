@@ -43,16 +43,30 @@ router.get('/:id',
     }
 })
 
-router.get('/:name',
+router.get('/:gender',
     passport.authenticate('jwt', {session: false}),
     async(req, res, next) => {
     try{
-       const gender = await service.findById(req.query.name as string)
+        const gender = await service.findByGender(req.params.gender as string)
+        res.status(200).json(gender)
+    } catch(error) {
+        next(error)
+    }
+}) 
+/*
+router.get('/',
+    passport.authenticate('jwt', {session: false}),
+    async(req, res, next) => {
+    try{
+        const { name } = req.query
+       const gender = await service.findByName(name as string)
        res.status(200).json(gender)
     } catch(error) {
         next(error)
     }
-})
+
+}) */
+
 
 
 })

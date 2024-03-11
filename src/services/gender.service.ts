@@ -31,21 +31,21 @@ class GenderService{
         } )
 
         if(!gender){
-            throw boom.notFound('Gender not found');
+            throw boom.notFound('Gender not found, byId');
         }
 
         return gender
     }
 
-    async findByName(name: String){
-        const gender = await Genders.findOne({name}).catch((error) => {
+    async findByGender(gender: String){
+        const result = await Genders.findOne({gender}).catch((error) => {
             console.log('Error while connecting to the DB', error)
         } )
 
-        if(!gender){
-            throw boom.notFound('Gender not found');
+        if(!result){
+            throw boom.notFound('Gender not found, byName');
         }
-        return gender
+        return result
     }
 }
 

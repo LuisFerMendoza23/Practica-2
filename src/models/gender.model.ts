@@ -4,12 +4,6 @@ import { Gender, GenderModel } from '../types/gender.type'
 
 //Tabla de categorias
 const Genders = new Schema <Gender, GenderModel>({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true, //le quita los espacios al principio y al final
-    },
     gender: {
         type: String,
         required: true,
@@ -20,4 +14,4 @@ const Genders = new Schema <Gender, GenderModel>({
     
 })
 
-export default model('Gender', Genders)
+export default model('Gender', Genders) 
