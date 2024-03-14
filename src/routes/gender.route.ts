@@ -2,7 +2,8 @@ import express from 'express'
 import GenderService from '../services/gender.service';
 import {Gender} from '../types/gender.type'
 import passport from 'passport'
-import  { UserRequestType } from '../types/user.type';
+import  { JwtRequestType, UserRequestType  } from '../types/user.type';
+import { ObjectId } from 'mongoose';
 
 const router = express.Router()
 const service = new GenderService() 
@@ -10,15 +11,22 @@ const service = new GenderService()
 router.post(
     '/', 
     passport.authenticate('jwt', {session: false}),
-    async (req, res) => {
+    async (req: JwtRequestType, res) => {
+        //const sub = req.user.sub
+        const { user: {sub} } = req 
+        console.log('sub', sub)
         const gender: Gender = req.body;
-        const newGender= await service.create(gender)
- 
+        //Se manda tanto genero como el usuario
+        const newGender= await service.create(
+            gender,
+             sub as unknown as ObjectId
+            )
+    
         res.status(201).json(newGender)
     }
 )
 
-router.get('/', 
+router.get('/all', 
     passport.authenticate('jwt', {session: false}),
     async (req: UserRequestType, res, next) => {
     try{
@@ -43,7 +51,7 @@ router.get('/:id',
     }
 })
 
-router.get('/:gender',
+router.get('/gender/:gender',
     passport.authenticate('jwt', {session: false}),
     async(req, res, next) => {
     try{

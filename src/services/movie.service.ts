@@ -23,12 +23,34 @@ class MovieService{
         const movie = await Movies.findById(id).catch((error)=>{
             console.log('Error while connecting to the DB', error)
         })
-        if(movie){
+        if(!movie){
             throw boom.notFound('Movie not found, byId')
         }
         return movie
     }
 
-    
-    
+    async findByName(name: String){
+        const movie = await Movies.findOne({name}).catch((error)=>{
+            console.log('Error while connecting to the DB, findByName', error)
+        })
+
+        if(!movie){
+            throw boom.notFound('Movie not found: Name')
+        }
+        return movie
+    }
+
+    async findByDirector(director: String){
+        const movie = await Movies.findOne({director}).catch((error)=>{
+            console.log('Error while connecting to the DB: findByDirector', error)
+        })
+
+        if(!movie){
+            throw boom.notFound('User not found: byDirector ')
+        }
+        return movie
+    }
+
 }
+
+export default MovieService

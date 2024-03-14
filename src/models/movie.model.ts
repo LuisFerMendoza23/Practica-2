@@ -9,12 +9,6 @@ const Movies = new Schema <Movie, MovieModel>({
         unnique: true,
         trim: true
     },
-    gender: {
-        /*type: String,
-        require: true,
-        trim:
-         Ver como se hace la llave foranea  */ 
-    },
     director: {
         type: String,
         required: true,

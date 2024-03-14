@@ -4,7 +4,10 @@ import boom from '@hapi/boom'
 import bcrypt from 'bcrypt'
 
 class UserService{
-    async create(user: User) { 
+    // getToClientUser(user: Partial<User>): Partial<User> {
+    //     return{ ...user, password: undefined }
+    // }
+    async create(user: User){ 
         const hashedPassword = await bcrypt.hash(user.password, 10)
         const newUser = await Users.create({
             ...user,
@@ -19,9 +22,11 @@ class UserService{
         
         // delete (newUser as unknown as User).password
         // return newUser
-        const new_User = newUser.toJSON();
-        delete new_User.password;
-        return new_User
+        // const new_User = newUser.toJSON();
+        // delete new_User.password;
+        // return new_User
+        newUser.password = undefined
+        return newUser
     
     }    
 
@@ -32,7 +37,7 @@ class UserService{
         })
 
         if(!user){
-            throw boom.notFound('User not found')
+            throw boom.notFound('User not found, all')
         }
         return user
     }
@@ -43,7 +48,7 @@ class UserService{
         } )
 
         if(!user){
-            throw boom.notFound('Gender not found');
+            throw boom.notFound('Gender not found, byId');
         }
 
         return user
@@ -55,23 +60,22 @@ class UserService{
         })
 
         if(!user){
-            throw boom.notFound('User not found: name')
+            throw boom.notFound('User not found,  byName')
         }
         return user
     }
         
-    async findByEmail(email: String) {
-        const user = await Users.findOne({email}).catch((error) =>{
-            console.log('Could not retrieve user info', error)
-
+    async findByEmail(email: string) {
+        const user = await Users.findOne({ email }).catch((error) => {
+          console.log('Could not retrieve user info', error)
         })
-        if(!user){
-            throw boom.notFound('User not found')
+    
+        if (!user) {
+          throw boom.notFound('User not found, byEmail')
         }
-        const new_User = user.toJSON();
-        delete new_User.password;
-        return new_User;
-    }
+    
+        return user
+      }
 
     async findByPhone(phone: String){
         const user = await Users.findOne({phone}).catch((error)=>{
@@ -82,10 +86,6 @@ class UserService{
         }
         return user
     }
-
-    
-    
-    
 }
 
 export default UserService
