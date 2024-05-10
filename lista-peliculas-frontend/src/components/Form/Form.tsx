@@ -3,15 +3,20 @@ import { useState, useEffect } from "react";
 import Data from "./Data"
 
 function Form () {
-    const [name, setName] = useState<string>("");;
     const [email, setEmail] = useState<string>("");
-    const [showData, setShowData] = useState<boolean>(false);
-
+    const [password, setPassword] = useState<string>("");
+    
+    const loginData = {
+        email: 'luisfercho1209@gmail.com',
+        password: '12345'
+    }
+    /*
     useEffect(() => {
         if(name.includes("ñ")){
             console.log("Tiene una ñ")
         }
     }, [name, email]);
+    */
 
     const handleInputChange = (stateUpdate) => {
         return (event) => {
@@ -20,35 +25,28 @@ function Form () {
     }
 
     const handleOnClcik = () => {
-        if(showData){
-            setName("");
-            setEmail("");
+        //Hacemos la comparacion de los valores dentro del loginData
+        if(email === loginData.email && password === loginData.password){
+            alert("Usuarios ingresados jeje")
         }
-        //toggle the flag
-        setShowData(!showData)
     }
 
     return(
     <>
-        <Data name={name} email={email} showData={showData}/>
         <section className="formContainer">
-            <span className="inputContainer">
-                <label htmlFor="name">Nombre:</label>
-                <input type="text" id="name" name="name" value={name} 
-                    onChange={handleInputChange(setName)}
-                />
-            </span>
             <span className="inputContainer">
                 <label htmlFor="email">Email:</label>
                 <input type="email" id="email" name="email" value={email} 
                     onChange={handleInputChange(setEmail)}
                 />
             </span>
-            <button className="button1" onClick={handleOnClcik}>
-                {
-                    showData ? "Ocultar datos" : "Mostrar datos"
-                }
-            </button>
+            <span className="inputContainer">
+                <label htmlFor="password">Password:</label>
+                <input type="password" id="password" name="password" value={password} 
+                    onChange={handleInputChange(setPassword)}
+                />
+            </span>
+            <button className="button1" onClick={handleOnClcik}>Ingresar</button>
         </section>
     </>
     );

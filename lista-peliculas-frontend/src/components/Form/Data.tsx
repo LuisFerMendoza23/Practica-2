@@ -1,18 +1,17 @@
 
 export type DataProps = {
-    name: string,
     email: string,
-    showData: boolean
+    password: string,
 }
 
-function Data({name, email, showData}: DataProps){
+function Data({ email, password}: DataProps){
     return (
         <section className="dataContainer">
             {
-                showData && (
-                    <><p>Nombre: {name}</p>
-                    <p>Email: {email}</p></>
-                )
+                    <>
+                    <p>Email: {email}</p>
+                    <p>Password: {password}</p>
+                    </>
             }
         </section>
     )

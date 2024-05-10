@@ -10,7 +10,7 @@ function App() {
 
   return (
     <main>
-        <Header title="Formulario de ingreso"/>
+        <Header title="Login para listado de peliculas "/>
         <Form />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
