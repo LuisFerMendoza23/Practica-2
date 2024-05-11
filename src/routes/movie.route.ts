@@ -8,6 +8,8 @@ import { ObjectId } from 'mongoose'
 const router = express.Router()
 const service = new MovieService()
 
+
+
     router.post(
         '/',
         passport.authenticate('jwt', {session: false}),
@@ -34,6 +36,7 @@ const service = new MovieService()
             next(error)
         }
     })
+
 
     router.get(
         '/:id',
@@ -76,6 +79,15 @@ const service = new MovieService()
         }
         }
     )
+
+    router.get("/findSecondMovie", async (req, res, next) =>  {
+        try{
+            const findMovie = await service.findSecondMovie()
+            res.status(200).json(findMovie)
+        } catch (error) {
+            next(error)
+        }
+    })
     
     
 

@@ -51,6 +51,16 @@ class MovieService{
         return movie
     }
 
+    async findSecondMovie(){
+        const movie = await Movies.find().sort({ _id: 1}).limit(2).catch((error) => {
+            console.log('Error while connecting to the DB', error)
+        })
+        if(!movie || movie.length < 2){
+            throw boom.notFound('Second Movie Not Found')
+        }
+        return movie[1]
+    }
+
 }
 
 export default MovieService
